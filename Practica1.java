@@ -2,6 +2,8 @@ package practica1;
 
 import java.util.*;
 
+import static java.lang.Math.pow;
+
 public class Practica1 {
 
     //EJERCICIO 1
@@ -37,15 +39,36 @@ public class Practica1 {
         Set<Integer> cuadradosre = new HashSet<>();
         Set<Integer> noCuadradosre = new HashSet<>();
         Integer siguientec;
-        Integer siguientecn;
-        while (cuadradosit.hasNext()) {
-            siguientec = cuadradosit.next();
-            Iterator<Integer> nocuadradosit = noCuadrados.iterator();
-            while (nocuadradosit.hasNext()) {
-
+        Integer siguientenc;
+        if (cuadradosit.hasNext()) {
+            noCuadrados.clear();
+            while (cuadradosit.hasNext()) {
+                siguientec = cuadradosit.next();
+                Iterator<Integer> nocuadradosit = noCuadrados.iterator();
+                if (!(nocuadradosit.hasNext())) {
+                    noCuadradosre.add(siguientec);
+                } else {
+                    while (nocuadradosit.hasNext()) {
+                        siguientenc = nocuadradosit.next();
+                        if (pow(siguientec, 2) == siguientenc) {
+                            cuadradosre.add(siguientec);
+                        } else {
+                            noCuadradosre.add(siguientec);
+                        }
+                        if (pow(siguientenc, 2) == siguientec) {
+                            cuadradosre.add(siguientenc);
+                        } else {
+                            noCuadradosre.add(siguientenc);
+                        }
+                    }
+                }
+                cuadradosit.remove();
             }
+            noCuadrados.clear();
         }
-
+        noCuadradosre.removeAll(cuadradosre);
+        cuadrados.addAll(cuadradosre);
+        noCuadrados.addAll(noCuadradosre);
     }
 
     //EJERCICIO 3
